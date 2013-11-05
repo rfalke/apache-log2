@@ -1,0 +1,37 @@
+{
+  "name": "apache-log",
+  "description": "Apache/CLF access logging middleware for Nodejs. Adds NodeJs requests to your existing apache or CLF analytics.",
+  "version": "0.0.9",
+  "private": false,
+  "homepage": "https://surgemcgee@bitbucket.org/surgemcgee/apache-log",
+  "repository": {
+    "type": "hg",
+    "url": "https://surgemcgee@bitbucket.org/surgemcgee/apache-log"
+  },
+  "author": {
+    "name": "Robert Edward Steckroth II",
+    "email": "robertsteckroth@gmail.com",
+    "url": "http://www.surgemcgee.com"
+  },
+  "main": "lib/apache-log",
+  "keywords": [
+    "apache",
+    "analytics",
+    "analytic",
+    "NCSA",
+    "CLF",
+    "awstats",
+    "log",
+    "access",
+    "webalizer",
+    "apache2",
+    "access.log",
+    "logging"
+  ],
+  "dependencies": {
+    "sprintf": "0.1.1",
+    "object-parse": "0.0.5"
+  },
+  "readmeFilename": "README.md",
+  "license": "GNU v3"
+}

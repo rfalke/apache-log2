@@ -36,12 +36,14 @@
   ],
   "dependencies": {
     "sprintf": "0.1.1",
-    "object-parse": "0.0.5"
+    "object-parse": "0.0.5",
+    "request": "latest"
   },
   "readmeFilename": "README.md",
   "license": "GPL-3.0",
   "scripts": {
-    "lint": "jshint -c .jshintrc lib/*.js"
+    "lint": "jshint -c .jshintrc lib/*.js test/*.js",
+    "test": "mocha test/"
   },
   "devDependencies": {
     "jshint": "latest",

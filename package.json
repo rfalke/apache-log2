@@ -39,5 +39,12 @@
     "object-parse": "0.0.5"
   },
   "readmeFilename": "README.md",
-  "license": "GNU v3"
+  "license": "GPL-3.0",
+  "scripts": {
+    "lint": "jshint -c .jshintrc lib/*.js"
+  },
+  "devDependencies": {
+    "jshint": "latest",
+    "mocha": "latest"
+  }
 }

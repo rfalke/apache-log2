@@ -1,15 +1,15 @@
-# apache-log  
+# apache-log2
 ## Apache/CLF access logging for Nodejs
   
- [![NPM](https://nodei.co/npm/apache-log.png?downloads=true)](https://nodei.co/npm/apache-log/)
+ [![NPM](https://nodei.co/npm/apache-log2.png?downloads=true)](https://nodei.co/npm/apache-log2/)
 
-**Author:** Robert Edward Steckroth II
-
-**Digital Persona:** Surgemcgee, Bustout <RobertSteckroth@gmail.com>
+**Author:** Raimar Falke
 
 **Licence:** GNU GENERAL PUBLIC LICENSE Version 3
  
 **Dependencies:**  [object-parse](https://npmjs.org/package/object-parse/), [sprintf](https://npmjs.org/package/sprintf/)
+
+**Based on:** the work of Robert Edward Steckroth II <RobertSteckroth@gmail.com> aka Surgemcgee / Bustout 
 
 **Description:**  
 
@@ -33,7 +33,7 @@ _example output line of combined log_
 **Usage:**  
 
 ````
-    var apache_log = require('apache-log')
+    var apache_log = require('apache-log2')
     http.createServer(function(req, res) {
       apache_log.logger(req, res)
       res.writeHead(200, {'Content-Type': 'text/html'} )
@@ -55,8 +55,3 @@ Set simple options with the [object-parse](https://npmjs.org/package/object-pars
 
 
 ````
-
-
- 
-
-

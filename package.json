@@ -1,18 +1,24 @@
 {
-  "name": "apache-log",
+  "name": "apache-log2",
   "description": "Apache/CLF access logging middleware for Nodejs. Adds NodeJs requests to your existing apache or CLF analytics.",
-  "version": "0.0.9",
+  "version": "0.0.1",
   "private": false,
-  "homepage": "https://surgemcgee@bitbucket.org/surgemcgee/apache-log",
+  "homepage": "https://github.com/rfalke/apache-log2",
   "repository": {
-    "type": "hg",
-    "url": "https://surgemcgee@bitbucket.org/surgemcgee/apache-log"
+    "type": "git",
+    "url": "https://github.com/rfalke/apache-log2"
   },
-  "author": {
-    "name": "Robert Edward Steckroth II",
-    "email": "robertsteckroth@gmail.com",
-    "url": "http://www.surgemcgee.com"
-  },
+  "contributors": [
+    {
+      "name": "Raimar Falke",
+      "email": "i-apache-log-node@rf.risimo.net"
+    },
+    {
+      "name": "Robert Edward Steckroth II",
+      "email": "robertsteckroth@gmail.com",
+      "url": "http://www.surgemcgee.com"
+    }
+  ],
   "main": "lib/apache-log",
   "keywords": [
     "apache",

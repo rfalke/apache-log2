@@ -44,8 +44,8 @@ describe('logging', function () {
                 assert.equal(body, "/abcdef");
                 server.close();
                 var line = fs.readFileSync(tmpDir + "/access.log").toString();
-                assert.equal(line.indexOf("127.0.0.1 - - ["), 0);
-                assert.ok(line.indexOf('] "GET /abcdef HTTP/1.1" 200 7 "-" "undefined"\n') > 0);
+                line = line.replace(new RegExp("[0-9][0-9]/[A-Z][a-z][a-z]/20[0-9][0-9]:[0-9][0-9]:[0-9][0-9]:[0-9][0-9] \\+0000"), "DATE");
+                assert.equal(line, '127.0.0.1 - - [DATE] "GET /abcdef HTTP/1.1" 200 7 "-" "undefined"\n');
                 done();
             }
         });

@@ -105,4 +105,38 @@ describe('logging', function () {
             }
         });
     });
+    it("end(buffer)", function (done) {
+        apache_log.data.settings({directory: tmpDir});
+        var server = http.createServer(function (req, res) {
+            apache_log.logger(req, res);
+            res.end(new Buffer(req.url));
+        });
+        server.listen(port);
+        request('http://localhost:' + port + '/abcdef', function (error, response, body) {
+            if (!error && response.statusCode === 200) {
+                assert.equal(body, "/abcdef");
+                server.close();
+                assert.equal(read_log(), '127.0.0.1 - - [DATE] "GET /abcdef HTTP/1.1" 200 7 "-" "undefined"\n');
+                done();
+            }
+        });
+    });
+    it("write(buffer)+end()", function (done) {
+        apache_log.data.settings({directory: tmpDir});
+        var server = http.createServer(function (req, res) {
+            apache_log.logger(req, res);
+            res.write(new Buffer(req.url));
+            res.end();
+        });
+        server.listen(port);
+        request('http://localhost:' + port + '/abcdef', function (error, response, body) {
+            if (!error && response.statusCode === 200) {
+                assert.equal(body, "/abcdef");
+                server.close();
+                assert.equal(read_log(), '127.0.0.1 - - [DATE] "GET /abcdef HTTP/1.1" 200 7 "-" "undefined"\n');
+                done();
+            }
+        });
+    });
+
 });

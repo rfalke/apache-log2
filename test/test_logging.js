@@ -32,6 +32,11 @@ describe('logging', function () {
     afterEach(function () {
         rm_r(tmpDir);
     });
+    function read_log() {
+        var line = fs.readFileSync(tmpDir + "/access.log").toString();
+        line = line.replace(new RegExp("[0-9][0-9]/[A-Z][a-z][a-z]/20[0-9][0-9]:[0-9][0-9]:[0-9][0-9]:[0-9][0-9] \\+0000"), "DATE");
+        return line;
+    }
     it("simple full trip test with real http server and client", function (done) {
         apache_log.data.settings({directory: tmpDir});
         var server = http.createServer(function (req, res) {
@@ -43,9 +48,59 @@ describe('logging', function () {
             if (!error && response.statusCode === 200) {
                 assert.equal(body, "/abcdef");
                 server.close();
-                var line = fs.readFileSync(tmpDir + "/access.log").toString();
-                line = line.replace(new RegExp("[0-9][0-9]/[A-Z][a-z][a-z]/20[0-9][0-9]:[0-9][0-9]:[0-9][0-9]:[0-9][0-9] \\+0000"), "DATE");
-                assert.equal(line, '127.0.0.1 - - [DATE] "GET /abcdef HTTP/1.1" 200 7 "-" "undefined"\n');
+                assert.equal(read_log(), '127.0.0.1 - - [DATE] "GET /abcdef HTTP/1.1" 200 7 "-" "undefined"\n');
+                done();
+            }
+        });
+    });
+    it("write(data)+end(data)", function (done) {
+        apache_log.data.settings({directory: tmpDir});
+        var server = http.createServer(function (req, res) {
+            apache_log.logger(req, res);
+            res.write("1234");
+            res.end(req.url);
+        });
+        server.listen(port);
+        request('http://localhost:' + port + '/abcdef', function (error, response, body) {
+            if (!error && response.statusCode === 200) {
+                assert.equal(body, "1234/abcdef");
+                server.close();
+                assert.equal(read_log(), '127.0.0.1 - - [DATE] "GET /abcdef HTTP/1.1" 200 11 "-" "undefined"\n');
+                done();
+            }
+        });
+    });
+    it("write(data)+end()", function (done) {
+        apache_log.data.settings({directory: tmpDir});
+        var server = http.createServer(function (req, res) {
+            apache_log.logger(req, res);
+            res.write(req.url);
+            res.end();
+        });
+        server.listen(port);
+        request('http://localhost:' + port + '/abcdef', function (error, response, body) {
+            if (!error && response.statusCode === 200) {
+                assert.equal(body, "/abcdef");
+                server.close();
+                assert.equal(read_log(), '127.0.0.1 - - [DATE] "GET /abcdef HTTP/1.1" 200 7 "-" "undefined"\n');
+                done();
+            }
+        });
+    });
+    it("write(data)+write(data)+end()", function (done) {
+        apache_log.data.settings({directory: tmpDir});
+        var server = http.createServer(function (req, res) {
+            apache_log.logger(req, res);
+            res.write("1234");
+            res.write(req.url);
+            res.end();
+        });
+        server.listen(port);
+        request('http://localhost:' + port + '/abcdef', function (error, response, body) {
+            if (!error && response.statusCode === 200) {
+                assert.equal(body, "1234/abcdef");
+                server.close();
+                assert.equal(read_log(), '127.0.0.1 - - [DATE] "GET /abcdef HTTP/1.1" 200 11 "-" "undefined"\n');
                 done();
             }
         });

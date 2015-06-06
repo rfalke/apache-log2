@@ -5,6 +5,7 @@ var os = require("os");
 var fs = require("fs");
 var http = require("http");
 var request = require('request');
+var sinon = require('sinon');
 
 var apache_log = require("../lib/apache-log");
 
@@ -134,6 +135,48 @@ describe('logging', function () {
                 assert.equal(body, "/abcdef");
                 server.close();
                 assert.equal(read_log(), '127.0.0.1 - - [DATE] "GET /abcdef HTTP/1.1" 200 7 "-" "undefined"\n');
+                done();
+            }
+        });
+    });
+    it("timestamp format", function (done) {
+        apache_log.data.settings({directory: tmpDir});
+        var server = http.createServer(function (req, res) {
+            apache_log.logger(req, res);
+            res.write(new Buffer(req.url));
+            res.end();
+        });
+        server.listen(port);
+        var clock = sinon.useFakeTimers(819808496000);
+        request('http://localhost:' + port + '/abcdef', function (error, response, body) {
+            clock.restore();
+            if (!error && response.statusCode === 200) {
+                assert.equal(body, "/abcdef");
+                server.close();
+                var parts = fs.readFileSync(tmpDir + "/access.log").toString().split(" ");
+                assert.equal(parts[3], '[24/Dec/1995:12:34:56');
+                assert.equal(parts[4], '+0000]');
+                done();
+            }
+        });
+    });
+    it("timestamp format leading zeros", function (done) {
+        apache_log.data.settings({directory: tmpDir});
+        var server = http.createServer(function (req, res) {
+            apache_log.logger(req, res);
+            res.write(new Buffer(req.url));
+            res.end();
+        });
+        server.listen(port);
+        var clock = sinon.useFakeTimers(791690645006);
+        request('http://localhost:' + port + '/abcdef', function (error, response, body) {
+            clock.restore();
+            if (!error && response.statusCode === 200) {
+                assert.equal(body, "/abcdef");
+                server.close();
+                var parts = fs.readFileSync(tmpDir + "/access.log").toString().split(" ");
+                assert.equal(parts[3], '[02/Feb/1995:02:04:05');
+                assert.equal(parts[4], '+0000]');
                 done();
             }
         });

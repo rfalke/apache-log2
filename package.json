@@ -47,6 +47,7 @@
   },
   "devDependencies": {
     "jshint": "latest",
+    "sinon": "latest",
     "mocha": "latest"
   }
 }

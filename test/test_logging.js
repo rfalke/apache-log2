@@ -49,7 +49,7 @@ describe('logging', function () {
             if (!error && response.statusCode === 200) {
                 assert.equal(body, "/abcdef");
                 server.close();
-                assert.equal(read_log(), '127.0.0.1 - - [DATE] "GET /abcdef HTTP/1.1" 200 7 "-" "undefined"\n');
+                assert.equal(read_log(), '127.0.0.1 - - [DATE] "GET /abcdef HTTP/1.1" 200 7 "-" "-"\n');
                 done();
             }
         });
@@ -66,7 +66,7 @@ describe('logging', function () {
             if (!error && response.statusCode === 200) {
                 assert.equal(body, "1234/abcdef");
                 server.close();
-                assert.equal(read_log(), '127.0.0.1 - - [DATE] "GET /abcdef HTTP/1.1" 200 11 "-" "undefined"\n');
+                assert.equal(read_log(), '127.0.0.1 - - [DATE] "GET /abcdef HTTP/1.1" 200 11 "-" "-"\n');
                 done();
             }
         });
@@ -83,7 +83,7 @@ describe('logging', function () {
             if (!error && response.statusCode === 200) {
                 assert.equal(body, "/abcdef");
                 server.close();
-                assert.equal(read_log(), '127.0.0.1 - - [DATE] "GET /abcdef HTTP/1.1" 200 7 "-" "undefined"\n');
+                assert.equal(read_log(), '127.0.0.1 - - [DATE] "GET /abcdef HTTP/1.1" 200 7 "-" "-"\n');
                 done();
             }
         });
@@ -101,7 +101,7 @@ describe('logging', function () {
             if (!error && response.statusCode === 200) {
                 assert.equal(body, "1234/abcdef");
                 server.close();
-                assert.equal(read_log(), '127.0.0.1 - - [DATE] "GET /abcdef HTTP/1.1" 200 11 "-" "undefined"\n');
+                assert.equal(read_log(), '127.0.0.1 - - [DATE] "GET /abcdef HTTP/1.1" 200 11 "-" "-"\n');
                 done();
             }
         });
@@ -117,7 +117,7 @@ describe('logging', function () {
             if (!error && response.statusCode === 200) {
                 assert.equal(body, "/abcdef");
                 server.close();
-                assert.equal(read_log(), '127.0.0.1 - - [DATE] "GET /abcdef HTTP/1.1" 200 7 "-" "undefined"\n');
+                assert.equal(read_log(), '127.0.0.1 - - [DATE] "GET /abcdef HTTP/1.1" 200 7 "-" "-"\n');
                 done();
             }
         });
@@ -134,7 +134,7 @@ describe('logging', function () {
             if (!error && response.statusCode === 200) {
                 assert.equal(body, "/abcdef");
                 server.close();
-                assert.equal(read_log(), '127.0.0.1 - - [DATE] "GET /abcdef HTTP/1.1" 200 7 "-" "undefined"\n');
+                assert.equal(read_log(), '127.0.0.1 - - [DATE] "GET /abcdef HTTP/1.1" 200 7 "-" "-"\n');
                 done();
             }
         });

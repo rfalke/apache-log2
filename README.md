@@ -7,9 +7,9 @@
 
 **Licence:** GNU GENERAL PUBLIC LICENSE Version 3
  
-**Dependencies:**  [object-parse](https://npmjs.org/package/object-parse/), [sprintf](https://npmjs.org/package/sprintf/)
+**Dependencies:**  [sprintf](https://npmjs.org/package/sprintf/)
 
-**Based on:** the work of Robert Edward Steckroth II <RobertSteckroth@gmail.com> aka Surgemcgee / Bustout 
+**Based on:** [the work](https://bitbucket.org/surgemcgee/apache-log) of Robert Edward Steckroth II <RobertSteckroth@gmail.com> aka Surgemcgee / Bustout
 
 **Description:**  
 
@@ -23,7 +23,7 @@ Outputs NodeJs request/response event logs with a Apache/CLF format. Supports co
 * Defaults to Apache2 log formatting defaults
 * Does not require a call to writeHead to output with CLF conformity
 
-**Changes compared to apache-log:**
+**Changes compared to [apache-log](https://bitbucket.org/surgemcgee/apache-log):**
 
 * Correct content length calculation when multiple write() calls occur
 * Also support Buffers in addition of strings as arguments to write() and end()
@@ -40,14 +40,12 @@ _example output line of combined log_
 **Usage:**  
 
 ````
-
     var apache_log = require('apache-log2')
     http.createServer(function(req, res) {
       apache_log.logger(req, res)
       res.writeHead(200, {'Content-Type': 'text/html'} )
       res.end('This is when the logger will output to the specified log file.') 
     }).listen(8080)
-
 ````
 
 **Settings:**
@@ -64,5 +62,4 @@ The default file is "/var/log/access.log" and the format is "combined". Call apa
       res.writeHead(200, {'Content-Type': 'text/html'} )
       res.end('This is when the logger will output to the specified log file.')
     }).listen(8080)
-
 ````

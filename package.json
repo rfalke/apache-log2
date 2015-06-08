@@ -36,7 +36,6 @@
   ],
   "dependencies": {
     "sprintf": "0.1.1",
-    "object-parse": "0.0.5",
     "request": "latest"
   },
   "readmeFilename": "README.md",

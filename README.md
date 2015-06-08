@@ -17,11 +17,18 @@ Outputs NodeJs request/response event logs with a Apache/CLF format. Supports co
 
 **Features:**   
 
-* Automatic Content-length computations  
+* Automatic Content-length computations
 * Activated when a response.end is called
 * Does not require middleware, e.g. express or connect
 * Defaults to Apache2 log formatting defaults
 * Does not require a call to writeHead to output with CLF conformity
+
+**Changes compared to apache-log:**
+
+* Correct content length calculation when multiple write() calls occur
+* Also support Buffers in addition of strings as arguments to write() and end()
+* Replace apache_log.data.settings() call with apache_log.configure with different signature
+* Allow to set the path before the first write operation. No more accesses to /var/log/access.log.
 
 **Caveats:**  
 
@@ -33,25 +40,29 @@ _example output line of combined log_
 **Usage:**  
 
 ````
+
     var apache_log = require('apache-log2')
     http.createServer(function(req, res) {
       apache_log.logger(req, res)
       res.writeHead(200, {'Content-Type': 'text/html'} )
       res.end('This is when the logger will output to the specified log file.') 
     }).listen(8080)
-    
+
 ````
 
 **Settings:**
 
-Set simple options with the [object-parse](https://npmjs.org/package/object-parse/) syntax
+The default file is "/var/log/access.log" and the format is "combined". Call apache_log.configure() with the filename (including the directory) and the format ('common' or 'combined') to change these values.
 
 ````
- apache_log.data.settings({
-    directory: '/var/log/apache2/',
-    filename: 'access.log',
-    format: 'combined',
-    }, apache_log.data.cli_parse()) // parse the cli input as well see [object-parse](https://npmjs.org/package/object-parse/) for details
+    var apache_log = require('apache-log2')
 
+    apache_log.configure("/var/http/logs/access.log", "common");
+
+    http.createServer(function(req, res) {
+      apache_log.logger(req, res)
+      res.writeHead(200, {'Content-Type': 'text/html'} )
+      res.end('This is when the logger will output to the specified log file.')
+    }).listen(8080)
 
 ````

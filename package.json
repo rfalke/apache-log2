@@ -1,7 +1,7 @@
 {
   "name": "apache-log2",
   "description": "Apache/CLF access logging middleware for Nodejs. Adds NodeJs requests to your existing apache or CLF analytics.",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "private": false,
   "homepage": "https://github.com/rfalke/apache-log2",
   "repository": {
